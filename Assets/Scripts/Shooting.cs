@@ -9,6 +9,7 @@ public class Shooting : MonoBehaviour
     public GameObject bulletPrefab;
     public AudioClip audioClip;
     private AudioSource audioSource; //The thing to play the audio
+    public ParticleSystem muzzleFlash;
 
     public float bulletForce = 20f;
 
@@ -46,9 +47,11 @@ public class Shooting : MonoBehaviour
 
     void Shoot()
     {
+        muzzleFlash.Play();
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
+        
         Destroy(bullet, bulletLife);
     }
 }
