@@ -11,16 +11,19 @@ public class EnemyDestroyPlayer : MonoBehaviour
 
     }
 
-    
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-
-        playerLives.playerLives = playerLives.playerLives - 1;
-        if (playerLives.playerLives == 0)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(other.gameObject);
+            Destroy(gameObject);
+            playerLives.playerLives = playerLives.playerLives - 1;
+            Debug.Log(playerLives.playerLives);
+            if (playerLives.playerLives == 0)
+            {
+                Destroy(collision.gameObject);
+            }
         }
-        Debug.Log(playerLives.playerLives);
     }
+
+
 }

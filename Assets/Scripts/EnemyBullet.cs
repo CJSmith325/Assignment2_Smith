@@ -5,23 +5,61 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     PlayerLives playerLives;
+
+    public float speed;
+
+    private Transform player;
+
+    private Vector2 target;
     private void Awake()
     {
         playerLives = GameObject.Find("Environment").GetComponent<PlayerLives>();
 
         
     }
-    void OnCollisionEnter2D(Collision2D other)
+
+    private void Start()
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (GameObject.Find("Player") != null)
         {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+
+            target = new Vector2(player.position.x, player.position.y);
+        }
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        //target = new Vector2(player.position.x, player.position.y);
+        
+    }
+
+    private void Update()
+    {
+       
+        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        if (transform.position.x == target.x && transform.position.y == target.y)
+        {
+            DestroyProjectile();
+        }
+            
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            DestroyProjectile();
             playerLives.playerLives = playerLives.playerLives - 1;
+            Debug.Log(playerLives.playerLives);
+            if (playerLives.playerLives == 0)
+            {
+                Destroy(collision.gameObject);
+            }
         }
-        Destroy(this.gameObject);
-        if (playerLives.playerLives == 0)
-        {
-            Destroy(other.gameObject);
-        }
-        Debug.Log(playerLives.playerLives);
+    }
+
+    void DestroyProjectile()
+    {
+        Destroy(gameObject);
+        
     }
 }

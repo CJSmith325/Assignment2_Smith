@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// player sprite: https://opengameart.org/content/pixel-art-comboys-robot-cowboy
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
