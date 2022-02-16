@@ -45,6 +45,8 @@ public class Shooting : MonoBehaviour
         }
     }
 
+    
+
     void Shoot()
     {
         muzzleFlash.Play();
