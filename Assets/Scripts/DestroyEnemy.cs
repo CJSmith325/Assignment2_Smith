@@ -11,6 +11,10 @@ public class DestroyEnemy : MonoBehaviour
             
             Destroy(this.gameObject);
         }
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
