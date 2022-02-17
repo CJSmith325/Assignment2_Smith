@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyBullet : MonoBehaviour
 {
@@ -11,6 +12,16 @@ public class EnemyBullet : MonoBehaviour
     private Transform player;
 
     private Vector2 target;
+
+    public string sceneName;
+
+    private IEnumerator WaitForSceneLoad(string name)
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(name);
+
+    }
+
     private void Awake()
     {
         playerLives = GameObject.Find("Environment").GetComponent<PlayerLives>();
@@ -53,6 +64,7 @@ public class EnemyBullet : MonoBehaviour
             if (playerLives.playerLives == 0)
             {
                 Destroy(collision.gameObject);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
     }
